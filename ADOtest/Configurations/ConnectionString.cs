@@ -1,4 +1,4 @@
-﻿namespace ADOtest
+﻿namespace ADOtest.Configurations
 {
     public static class ConnectionString
     {
