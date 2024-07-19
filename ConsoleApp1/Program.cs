@@ -1,83 +1,48 @@
 ﻿using ADOtest;
 using ADOtestModule;
+using ConsoleModule;
 using Microsoft.Data.SqlClient;
 using System.Data;
 class Program 
 {
     static void Main(string[] args)
     {
-        var connector = new MainConnector();
+        //data = db.SelectAll(tablename);
 
-        var result = connector.ConnectAsync();
+        //Console.WriteLine("Количество строк в " + tablename + ": " + data.Rows.Count);
 
-        var data = new DataTable();
+        //foreach (DataColumn column in data.Columns) 
+        //{
+        //    Console.Write($"{column.ColumnName}\t");
+        //}
 
-        if (result.Result)
-        {
-            Console.WriteLine("Подключено успешно!");
+        //Console.WriteLine();
 
-            var db = new DbExecutor(connector);
-            var tablename = "NetworkUser";
+        //foreach (DataRow row in data.Rows)
+        //{
+        //    var cells = row.ItemArray;
+        //    foreach (var cell in cells)
+        //    {
+        //        Console.Write($"{cell}\t");
+        //    }
+        //    Console.WriteLine();
+        //}
 
-            Console.WriteLine("Получаем данные таблицы " + tablename);
+        Manager manager = new Manager();
 
-            //data = db.SelectAll(tablename);
+        manager.Connect();
 
-            //Console.WriteLine("Количество строк в " + tablename + ": " + data.Rows.Count);
+        manager.ShowData();
 
-            //foreach (DataColumn column in data.Columns) 
-            //{
-            //    Console.Write($"{column.ColumnName}\t");
-            //}
+        Console.WriteLine("Введите логин для удаления:");
+        var countDeleted = manager.DeleteUserByLogin(Console.ReadLine());
 
-            //Console.WriteLine();
+        Console.WriteLine($"Строк удалено: {countDeleted}");
 
-            //foreach (DataRow row in data.Rows)
-            //{
-            //    var cells = row.ItemArray;
-            //    foreach (var cell in cells)
-            //    {
-            //        Console.Write($"{cell}\t");
-            //    }
-            //    Console.WriteLine();
-            //}
+        manager.ShowData();
 
-            SqlDataReader reader = db.SelectAllCommandReader(tablename);
-            
-            var columnList = new List<string>();
-
-            for (int i = 0; i < reader.FieldCount; i++)
-            {
-                var name = reader.GetName(i);
-                columnList.Add(name);
-            }
-
-            for (int i = 0; i < columnList.Count; i++)
-            {
-                Console.Write($"{columnList[i]}\t");
-            }
-            Console.WriteLine();
-
-            while (reader.Read())
-            {
-                for (int i = 0; i < columnList.Count; i++)
-                {
-                    var value = reader[columnList[i]];
-                    Console.Write($"{value}\t");
-                }
-
-                Console.WriteLine();
-            }
-
-            Console.WriteLine("Отключаем БД!");
-            connector.DisconnectAsync();
-        }
-        else
-        {
-            Console.WriteLine("Ошибка подключения!");
-        }
+        manager.Disconnect();
 
         Console.ReadKey();
-
     }
 }

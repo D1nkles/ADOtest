@@ -43,5 +43,17 @@ namespace ADOtestModule
 
             return null;
         }
+
+        public int DeleteByColumnCommand(string table, string column, string value) 
+        {
+            var command = new SqlCommand
+            {
+                CommandType = CommandType.Text,
+                CommandText = "delete from " + table + " where " + column + " = '" + value+ "'",
+                Connection = connector.GetConnection()
+            };
+
+            return command.ExecuteNonQuery();
+        }
     }
 }
