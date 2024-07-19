@@ -82,6 +82,11 @@ namespace ConsoleModule
             return dbExecutor.DeleteByColumnCommand(userTable.Name, userTable.ImportantField, value);
         }
 
+        public int UpdateUserNameByLogin(string login, string newName) 
+        {
+            return dbExecutor.UpdateByColumn(login, newName);
+        }
+
         public int AddNewUser(string name, string login) 
         {
             return dbExecutor.AddNewUser(name, login);

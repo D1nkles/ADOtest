@@ -56,6 +56,21 @@ namespace ADOtestModule
             return command.ExecuteNonQuery();
         }
 
+        public int UpdateByColumn(string login, string newName) 
+        {
+            var command = new SqlCommand
+            {
+                CommandType = CommandType.StoredProcedure,
+                CommandText = "UpdatingUserNameProc",
+                Connection = connector.GetConnection()
+            };
+
+            command.Parameters.Add(new SqlParameter("@Login", login));
+            command.Parameters.Add(new SqlParameter("@NewName", newName));
+            
+            return command.ExecuteNonQuery();
+        }
+
         public int AddNewUser(string name, string login) 
         {
             var command = new SqlCommand

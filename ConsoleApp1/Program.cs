@@ -34,21 +34,31 @@ class Program
 
         manager.ShowData();
 
-        Console.Write("Введите логин для удаления:");
+        Console.Write("Введите логин для удаления: ");
         var countDeleted = manager.DeleteUserByLogin(Console.ReadLine());
 
         Console.WriteLine($"Строк удалено: {countDeleted}");
 
         manager.ShowData();
 
-        Console.Write("Введите имя нового пользователя:");
+        Console.Write("Введите имя нового пользователя: ");
         var newUserName = Console.ReadLine();
-        Console.Write("Введите логин нового пользователя:");
+        Console.Write("Введите логин нового пользователя: ");
         var newUserLogin = Console.ReadLine();
         var countAdded = manager.AddNewUser(newUserName, newUserLogin);
 
         Console.WriteLine($"Строк добавлено: {countAdded}");
         
+        manager.ShowData();
+
+        Console.Write("Введите логин пользователя, имя которого вы хотите изменить: ");
+        var userLogin = Console.ReadLine();
+        Console.Write("Введите новое имя пользователя: ");
+        var userNewName = Console.ReadLine();
+        var countUpdated = manager.UpdateUserNameByLogin(userLogin, userNewName);
+
+        Console.WriteLine($"Строк изменено: {countUpdated}");
+
         manager.ShowData();
 
         manager.Disconnect();
