@@ -2,6 +2,7 @@
 using ADOtestModule;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using System.Numerics;
 
 namespace ConsoleModule
 {
@@ -79,6 +80,11 @@ namespace ConsoleModule
         public int DeleteUserByLogin(string value) 
         {
             return dbExecutor.DeleteByColumnCommand(userTable.Name, userTable.ImportantField, value);
+        }
+
+        public int AddNewUser(string name, string login) 
+        {
+            return dbExecutor.AddNewUser(name, login);
         }
     }  
 }

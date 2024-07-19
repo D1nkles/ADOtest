@@ -55,5 +55,20 @@ namespace ADOtestModule
 
             return command.ExecuteNonQuery();
         }
+
+        public int AddNewUser(string name, string login) 
+        {
+            var command = new SqlCommand
+            {
+                CommandType = CommandType.StoredProcedure,
+                CommandText = "AddingUserProc",
+                Connection = connector.GetConnection()
+            };
+
+            command.Parameters.Add(new SqlParameter("@Name", name));
+            command.Parameters.Add(new SqlParameter("@Login", login));
+
+            return command.ExecuteNonQuery();
+        }
     }
 }
